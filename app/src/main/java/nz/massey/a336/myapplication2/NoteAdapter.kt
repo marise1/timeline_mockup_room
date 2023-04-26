@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 class NoteAdapter(val clickListener: (note: Note) -> Unit) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()){
 
-    //var search = false
+    var search = false
     var noteMatch = listOf<Note>() //listOf( Note(-1, ""))
         set(value){
             field = value
-            //search = true
+            search = true
             for(match in noteMatch){
                 match.select = true
             }
@@ -35,43 +35,39 @@ class NoteAdapter(val clickListener: (note: Note) -> Unit) : ListAdapter<Note, N
         val note = getItem(position)
         holder.bind(note, clickListener)
 
-/*
         if(search){
             for(match in noteMatch){
                 //Log.i("match", match.pos.toString() + " " + match.note)
 
                 if(match.note == note.note){
-                    note.select = true
+                    holder.select = true
                     Log.i("adapter", "__" + position.toString() + " " + match.pos.toString())
                     break
                 }
             }
         }
-*/
 
         holder.block.setOnClickListener {
             clickListener(note)
-            //search = false
-            note.select = true
+            search = false
+            holder.select = true
             notifyDataSetChanged()
             Log.i("adapter0", "$position " + note.select)
         }
 
-        if (note.select) {
-            note.select = false
-/*
+        if (holder.select) {
+            holder.select = false
             if(search){
                 holder.mark.visibility = View.VISIBLE
                 holder.block.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 return
             }
-*/
-            holder.mark.visibility = View.VISIBLE
-            //holder.block.setBackgroundColor(Color.parseColor("#DADADA"))
+            holder.mark.visibility = View.INVISIBLE
+            holder.block.setBackgroundColor(Color.parseColor("#DADADA"))
             Log.i("adapter", "_" + position.toString() + " " + note.select)
         } else {
             holder.mark.visibility = View.INVISIBLE
-            //holder.block.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            holder.block.setBackgroundColor(Color.parseColor("#FFFFFF"))
             Log.i("adapter", position.toString() + " " + note.select)
         }
 
@@ -83,7 +79,7 @@ class NoteAdapter(val clickListener: (note: Note) -> Unit) : ListAdapter<Note, N
         val noteText = rootview.findViewById<TextView>(R.id.note)
         val block = rootview.findViewById<ConstraintLayout>(R.id.block)
         val mark = rootview.findViewById<TextView>(R.id.mark)
-        //var select = false
+        var select = false
         companion object {
             fun inflateFrom(parent: ViewGroup): NoteViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
