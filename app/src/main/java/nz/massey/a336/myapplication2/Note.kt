@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Note (
     @PrimaryKey(autoGenerate = true)
     var pos: Long = 0L,
-    var note: String = ""
+    var note: String = "",
+    var select: Boolean = false
 )

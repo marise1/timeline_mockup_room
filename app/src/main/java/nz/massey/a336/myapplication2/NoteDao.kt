@@ -1,10 +1,7 @@
 package nz.massey.a336.myapplication2
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface NoteDao {
@@ -13,6 +10,8 @@ interface NoteDao {
     suspend fun insert(note : Note)
     @Update
     suspend fun update(note: Note)
+    @Delete
+    suspend fun delete(note: Note)
 
     @Query("SELECT * FROM note_table WHERE pos = :pos")
     fun getNote(pos: Long): LiveData<Note>

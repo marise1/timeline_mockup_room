@@ -6,57 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listNote"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listNote">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="3">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listNote"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toTopOf="@id/txtSearch"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            app:layout_constraintBottom_toTopOf="@+id/btnEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            app:layout_constraintBottom_toTopOf="@+id/btnSave"
+            app:layout_constraintStart_toStartOf="@+id/btnDelete"
+            app:layout_constraintTop_toBottomOf="@+id/btnDelete" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="1dp"
+            android:text="Save"
+            app:layout_constraintBottom_toTopOf="@+id/btnSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/listNote"
+            app:layout_constraintTop_toBottomOf="@+id/btnEdit" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            app:layout_constraintBottom_toBottomOf="@id/listNote"
+            app:layout_constraintStart_toStartOf="@+id/btnSave"
+            app:layout_constraintTop_toBottomOf="@+id/btnSave" />
 
         <EditText
             android:id="@+id/txtSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
             android:hint="type keyword"
+            android:maxLines="1"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnSave"
+            app:layout_constraintEnd_toStartOf="@+id/btnUp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/listNote" />
 
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="100dp"
+        <ImageButton
+            android:id="@+id/btnUp"
+            android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginBottom="1dp"
-            android:text="Save"
-            app:layout_constraintBottom_toTopOf="@+id/btnSearch"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@drawable/round_corner"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="up button"
+            app:layout_constraintEnd_toStartOf="@+id/btnDown"
+            app:layout_constraintTop_toTopOf="@+id/txtSearch"
+            app:srcCompat="@drawable/up" />
 
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnSave" />
+        <ImageButton
+            android:id="@+id/btnDown"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="down button"
+            app:layout_constraintEnd_toEndOf="@+id/listNote"
+            app:layout_constraintTop_toTopOf="@+id/btnUp"
+            app:srcCompat="@drawable/down" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -64,6 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#DADADA"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
