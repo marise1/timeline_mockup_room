@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val r = findViewById<RecyclerView>(R.id.listNote)
-        val adapter = NoteAdapter{
+        val adapter = NoteAdapter(this){
             note -> onNoteClicked(note)
         }
         r.adapter = adapter
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             it?.let{
                 adapter.submitList(it)
             }
+            Log.i("livedata", "list")
         })
 
         val txtSearch = findViewById<EditText>(R.id.txtSearch)
@@ -51,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         // when click search button, list all the notes with match on the gray area
         var noteMatchString : LiveData<String>
         var noteMatch : LiveData<List<Note>>
@@ -61,14 +62,15 @@ class MainActivity : AppCompatActivity() {
         btnSearch.setOnClickListener {
             word = txtSearch.text.toString()
             //area.text = word
-            //lifecycleScope.launch {
-            //}
+
             noteMatch = dao.search(word)
             noteMatch.observe(this, Observer {
                 it?.let{
                     adapter.noteMatch = it
+                    Log.i("livedata", "running, $it")
                 }
             })
+
             noteMatchString = Transformations.map(noteMatch){
                     noteMatch -> formatNotes(noteMatch)
             }
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+
 
         // delete selected note when click delete button
         val btnDelete = findViewById<Button>(R.id.btnDelete)
@@ -102,12 +105,24 @@ class MainActivity : AppCompatActivity() {
             _clickedNote = null
         }
 
+        //val btnDown = findViewById<ImageButton>(R.id.btnDown)
+/*
+        btnDown.setOnClickListener{
+            i++
+            if(i == noteMatch.size){
+                i=0
+            }
+            current = noteMatch[i].pos
+        }
+*/
+
         clickedNote.observe(this, Observer {
             it?.let{
                 _clickedNote = it
                 area.text = formatNote(it)
-                Log.i(TAG, "not null")
+                //Log.i(TAG, "not null")
             }
+            Log.i("livedata", "clicked item")
         })
 
     }
