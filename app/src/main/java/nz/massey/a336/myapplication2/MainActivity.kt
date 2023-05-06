@@ -19,17 +19,18 @@ class MainActivity : AppCompatActivity() {
     var _clickedNote : Note? = null
     private val clickedNote = MutableLiveData<Note>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val r = findViewById<RecyclerView>(R.id.listNote)
         val adapter = NoteAdapter(this){
             note -> onNoteClicked(note)
         }
-        r.adapter = adapter
-        r.layoutManager = LinearLayoutManager(this)
+/*
+        val list = findViewById<RecyclerView>(R.id.listNote)
+        list.adapter = adapter
+        list.layoutManager = LinearLayoutManager(this)
+*/
 
         //val notes = listOf(Note(1,"text"), Note(2, "text2"))
         val dao = NoteDatabase.getInstance(this).noteDao
@@ -37,12 +38,13 @@ class MainActivity : AppCompatActivity() {
         notes.observe(this, Observer {
             it?.let{
                 adapter.submitList(it)
+                adapter.noteList = it
             }
             Log.i("livedata", "list")
         })
 
-        val txtSearch = findViewById<EditText>(R.id.txtSearch)
         // insert note when click save button
+        val txtSearch = findViewById<EditText>(R.id.txtSearch)
         val btnSave = findViewById<Button>(R.id.btnSave)
         btnSave.setOnClickListener{
             val text = txtSearch.text.toString()
@@ -51,27 +53,32 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch{
                 dao.insert(noteObj)
             }
+            adapter.cancelSearch()
+            Log.i("btnSave", "btnSave, text=$text")
         }
 
         // when click search button, list all the notes with match on the gray area
-        var noteMatchString : LiveData<String>
-        var noteMatch : LiveData<List<Note>>
-        var word = "note"
+        var click =  false
         val area = findViewById<TextView>(R.id.display)
         val btnSearch = findViewById<Button>(R.id.btnSearch)
         btnSearch.setOnClickListener {
-            word = txtSearch.text.toString()
-            //area.text = word
+            click = true
+            val word = txtSearch.text.toString()
+            val noteMatch = dao.search(word)
+            Log.i("livedata", "search, word=$word")
 
-            noteMatch = dao.search(word)
             noteMatch.observe(this, Observer {
                 it?.let{
-                    adapter.noteMatch = it
-                    Log.i("livedata", "running, $it")
+                    Log.i("livedata", "notematch called")
+                    if(click){
+                        click = false
+                        adapter.noteMatch = it
+                        Log.i("livedata", "running, size=${it.size}, word=$word, $it")
+                    }
                 }
             })
 
-            noteMatchString = Transformations.map(noteMatch){
+            val noteMatchString = Transformations.map(noteMatch){
                     noteMatch -> formatNotes(noteMatch)
             }
             noteMatchString.observe(this, Observer {
@@ -104,17 +111,6 @@ class MainActivity : AppCompatActivity() {
             }
             _clickedNote = null
         }
-
-        //val btnDown = findViewById<ImageButton>(R.id.btnDown)
-/*
-        btnDown.setOnClickListener{
-            i++
-            if(i == noteMatch.size){
-                i=0
-            }
-            current = noteMatch[i].pos
-        }
-*/
 
         clickedNote.observe(this, Observer {
             it?.let{
