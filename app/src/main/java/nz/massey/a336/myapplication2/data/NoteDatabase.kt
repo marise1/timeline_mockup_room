@@ -1,6 +1,6 @@
-package nz.massey.a336.myapplication2
+package nz.massey.a336.myapplication2.data
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,12 +13,12 @@ abstract class NoteDatabase : RoomDatabase() {
         @Volatile
         private var instance : NoteDatabase? = null
 
-        fun getInstance(context: Context): NoteDatabase{
+        fun getInstance(context: Application): NoteDatabase {
             return instance ?: synchronized(this){
                 instance ?: buildDatabase(context).also{ instance = it }
             }
         }
-        private fun buildDatabase(context: Context): NoteDatabase{
+        private fun buildDatabase(context: Application): NoteDatabase {
             return Room.databaseBuilder(context, NoteDatabase::class.java, "note_db").build()
         }
     }

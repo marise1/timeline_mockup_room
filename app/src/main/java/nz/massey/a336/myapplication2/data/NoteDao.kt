@@ -1,4 +1,4 @@
-package nz.massey.a336.myapplication2
+package nz.massey.a336.myapplication2.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

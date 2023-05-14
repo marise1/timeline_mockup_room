@@ -1,35 +1,41 @@
 package nz.massey.a336.myapplication2
 
-import android.app.Activity
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
-import androidx.lifecycle.LiveData
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import nz.massey.a336.myapplication2.data.Note
 
-class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()){
+class NoteAdapter(val clickListener: (note: Note) -> Unit) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()){
 
-    var noteList = listOf<Note>()
+    //var noteList = listOf<Note>()
+/*
     val list = context.findViewById<RecyclerView>(R.id.listNote)
     val layoutManager = LinearLayoutManager(context)
     init {
         list.adapter = this
         list.layoutManager = layoutManager
     }
+*/
+/*
+    val txtTotal = context.findViewById<TextView>(R.id.txtTotal)
+    val btnUp = context.findViewById<ImageButton>(R.id.btnUp)
+    val btnDown = context.findViewById<ImageButton>(R.id.btnDown)
+*/
 
-    var matchTotal = 0
-    var i = 0
+    //var matchTotal = 0
+    //var nextMatchPos = -1
+    //var i = 0
     var current = -1L
-    var search = false
+    //var search = false
+/*
     var noteMatch = listOf<Note>()
         set(value){
             field = value
@@ -38,8 +44,8 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
                 matchTotal = noteMatch.size
                 search = true
                 current = noteMatch[i].pos
-                list.scrollToPosition(noteList.indexOf(noteMatch[i]))
-                txtTotal.text = "1/$matchTotal"
+                //list.scrollToPosition(noteList.indexOf(noteMatch[i]))
+                //txtTotal.text = "1/$matchTotal"
                 //Log.i("setter", "match pos=${noteMatch[i].pos}, ${noteList.indexOf(noteMatch[i])}")
                 //Log.i("setter", value.toString())
                 notifyDataSetChanged()
@@ -47,19 +53,15 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
                 Log.i("setter", "no match")
             }
         }
+*/
 
-    val txtTotal = context.findViewById<TextView>(R.id.txtTotal)
-    val btnUp = context.findViewById<ImageButton>(R.id.btnUp)
-    val btnDown = context.findViewById<ImageButton>(R.id.btnDown)
-    var lastPos = -1
-    var firstPos = -1
-    var nextMatchPos = -1
-
+/*
     fun cancelSearch() {
         current = -1
         search = false
         notifyDataSetChanged()
     }
+*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : NoteViewHolder = NoteViewHolder.inflateFrom(parent)
@@ -67,8 +69,9 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val note = getItem(position)
         holder.bind(note, clickListener)
-        Log.i("adapter5", "size=${noteList.size}, pos=$position")
+        //Log.i("adapter5", "size=${noteList.size}, pos=$position")
 
+/*
         if(search){
             for(match in noteMatch){
                 //Log.i("match", match.pos.toString() + " " + match.note)
@@ -79,7 +82,9 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
                 }
             }
         }
+*/
 
+/*
         btnUp.setOnClickListener{
             if(search){
                 i--
@@ -99,27 +104,28 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
                 if(i == noteMatch.size) i=0
                 current = noteMatch[i].pos
                 nextMatchPos = noteList.indexOf(noteMatch[i])
-                //if(nextMatchPos > lastPos || nextMatchPos < firstPos){
-                    list.scrollToPosition(nextMatchPos)
-                //}
-                //lastPos = layoutManager.findLastVisibleItemPosition()
-                //firstPos = layoutManager.findFirstVisibleItemPosition()
+                list.scrollToPosition(nextMatchPos)
                 txtTotal.text = "${i+1}/$matchTotal"
                 notifyDataSetChanged()
                 Log.i("adapter4_down", "nextMatchPos=$nextMatchPos, i=$i, current=$current, "
                         + "first=$firstPos, last=$lastPos")
             }
         }
+*/
 
+/*
         holder.block.setOnClickListener {
             clickListener(note)
             note.select = true
-            cancelSearch()
+            current = -1
+            search = false
+            notifyDataSetChanged()
             Log.i("adapter0", "__$position " + note.select)
         }
+*/
 
         if (note.select) {
-            note.select = false
+            //note.select = false
 
             if(note.pos == current){
                 holder.arrow.visibility = View.VISIBLE
@@ -129,12 +135,12 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
 
             holder.mark.visibility = View.VISIBLE
             //holder.block.setBackgroundColor(Color.parseColor("#DADADA"))
-            //Log.i("adapter", "_" + position.toString() + " " + note.select)
+            Log.i("adapter", "_" + position.toString() + " " + note.select)
         } else {
             holder.arrow.visibility = View.INVISIBLE
             holder.mark.visibility = View.INVISIBLE
             //holder.block.setBackgroundColor(Color.parseColor("#FFFFFF"))
-            //Log.i("adapter", position.toString() + " " + note.select)
+            Log.i("adapter", position.toString() + " " + note.select)
         }
     }
 
@@ -156,6 +162,9 @@ class NoteAdapter(context: Activity, val clickListener: (note: Note) -> Unit) : 
         fun bind(item: Note, clickListener: (note: Note) -> Unit) {
             notePos.text = item.pos.toString()
             noteText.text = item.note
+            block.setOnClickListener {
+                clickListener(item)
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package nz.massey.a336.myapplication2
+package nz.massey.a336.myapplication2.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
