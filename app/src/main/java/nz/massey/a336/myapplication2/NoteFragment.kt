@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.navigation.findNavController
 
 class NoteFragment : Fragment() {
@@ -16,7 +17,7 @@ class NoteFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_note, container, false)
 
         val txtNote = view.findViewById<EditText>(R.id.txtNote)
-        val btnBack = view.findViewById<Button>(R.id.btnBack)
+        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
         btnBack.setOnClickListener{
             val note = txtNote.text.toString()
             val action = NoteFragmentDirections.actionNoteFragmentToListFragment(note)
