@@ -7,3 +7,4 @@ room with recyclerview
 
 <img src="img/mockup_arrow.png" alt="mockup screenshot" width="30%" height="30%">
 <img src="img/mockup_scroll.png" alt="mockup screenshot" width="30%" height="30%">
+<img src="img/mockup_animation2.png" alt="mockup screenshot" width="30%" height="30%">
