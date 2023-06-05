@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:minHeight="48dp"
-            android:text="note" />
+            android:text="note"
+            android:textSize="14sp" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import nz.massey.a336.myapplication2.data.Note
 
-class NoteAdapter(val clickListener: (note: Note) -> Unit) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()){
+class NoteAdapter(val clickListener: (note: Note, noteclick: Boolean) -> Unit) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()){
 
     var current = -1L
 
@@ -58,11 +58,14 @@ class NoteAdapter(val clickListener: (note: Note) -> Unit) : ListAdapter<Note, N
                 return NoteViewHolder(view)
             }
         }
-        fun bind(item: Note, clickListener: (note: Note) -> Unit) {
+        fun bind(item: Note, clickListener: (note: Note, noteclick: Boolean) -> Unit) {
             notePos.text = item.pos.toString()
             noteText.text = item.note
             block.setOnClickListener {
-                clickListener(item)
+                clickListener(item, false)
+            }
+            noteText.setOnClickListener {
+                clickListener(item, true)
             }
         }
     }

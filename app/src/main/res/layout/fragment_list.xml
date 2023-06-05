@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ListFragment">
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <EditText
+            android:id="@+id/txtSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:alpha="1"
+            android:hint="type keyword"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/btnSearchIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+    </FrameLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -23,11 +50,10 @@
             android:layout_height="0dp"
             android:layout_marginEnd="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/txtSearch"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/txtSearch2">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -68,35 +94,60 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Search"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/listNote"
             app:layout_constraintStart_toStartOf="@+id/btnSave"
             app:layout_constraintTop_toBottomOf="@+id/btnSave" />
 
         <EditText
-            android:id="@+id/txtSearch"
-            android:layout_width="0dp"
+            android:id="@+id/txtSearch2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:hint="type keyword"
             android:inputType="text"
             android:maxLines="1"
             android:minHeight="48dp"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtTotal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/listNote" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/rectangle"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/btnSearchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/baseline_search_24"
+            app:layout_constraintEnd_toStartOf="@+id/btnSettings"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:text="0/0"
-            app:layout_constraintBottom_toBottomOf="@+id/txtSearch"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/btnUp"
-            app:layout_constraintStart_toEndOf="@+id/txtSearch"
-            app:layout_constraintTop_toTopOf="@+id/txtSearch" />
+            tools:layout_editor_absoluteY="34dp" />
 
         <ImageButton
             android:id="@+id/btnUp"
@@ -105,6 +156,7 @@
             android:background="@drawable/round_corner"
             android:backgroundTint="#FFFFFF"
             android:contentDescription="up button"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/txtTotal"
             app:layout_constraintEnd_toStartOf="@+id/btnDown"
             app:layout_constraintTop_toTopOf="@+id/txtTotal"
@@ -117,6 +169,7 @@
             android:background="@drawable/round_corner"
             android:backgroundTint="#FFFFFF"
             android:contentDescription="down button"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/btnUp"
             app:layout_constraintEnd_toEndOf="@+id/listNote"
             app:layout_constraintTop_toTopOf="@+id/btnUp"

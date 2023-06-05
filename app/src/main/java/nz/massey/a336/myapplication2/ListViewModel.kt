@@ -8,6 +8,7 @@ import nz.massey.a336.myapplication2.data.NoteDao
 
 class ListViewModel(val dao: NoteDao) : ViewModel() {
 
+    var noteclick = false
     var _clickedNote : Note? = null
     val clickedNote = MutableLiveData<Note>()
 
@@ -29,15 +30,17 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
             note.select = false
         }
     }
-    fun onNoteClicked(note: Note){
+    fun onItemClicked(note: Note, click: Boolean){
+        noteclick = click
         clickedNote.value = note
+        Log.i("itemclick", "noteclick = $click")
     }
-    fun whenNoteClick(note: Note){
+    fun whenItemClick(note: Note){
         _clickedNote = note
         setAllNoteFalse()
+        search = false
         val i = noteList.indexOf(note)
         noteList[i].select = true
-        search = false
     }
 
     fun addNote(text : String){
