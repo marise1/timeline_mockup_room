@@ -1,6 +1,7 @@
 package nz.massey.a336.myapplication2
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import nz.massey.a336.myapplication2.data.Note
@@ -8,12 +9,14 @@ import nz.massey.a336.myapplication2.data.NoteDao
 
 class ListViewModel(val dao: NoteDao) : ViewModel() {
 
+    var nav = false
     var noteclick = false
-    var _clickedNote : Note? = null
+    var _clickedNote : Note? = Note()
     val clickedNote = MutableLiveData<Note>()
 
     var noteList = listOf<Note>()
 
+    var word = ""
     var txtTotal = ""
     var matchPos = -1
     var current = -1L
@@ -30,15 +33,14 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
             note.select = false
         }
     }
+
     fun onItemClicked(note: Note, click: Boolean){
         noteclick = click
         clickedNote.value = note
         Log.i("itemclick", "noteclick = $click")
     }
     fun whenItemClick(note: Note){
-        _clickedNote = note
         setAllNoteFalse()
-        search = false
         val i = noteList.indexOf(note)
         noteList[i].select = true
     }
@@ -46,8 +48,8 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
     fun addNote(text : String){
         val noteObj = Note()
         noteObj.note = text
-        search = false
-        setAllNoteFalse()
+        //search = false
+        //setAllNoteFalse()
         viewModelScope.launch{
             dao.insert(noteObj)
         }
@@ -88,6 +90,7 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
             //Log.i("setter", "$match, $noteList")
             val i = noteList.indexOf(match)
             noteList[i].select = true
+            match.select = true
         }
         i=0
         matchTotal = noteMatchList.size

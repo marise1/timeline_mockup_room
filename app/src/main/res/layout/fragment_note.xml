@@ -4,26 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".NoteFragment">
 
-    <ImageView
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/dark_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="@id/btnSettings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnSettings" />
+
+        <EditText
+            android:id="@+id/txtSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:background="@null"
+            android:hint="type keyword"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/btnSettings"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnSettings"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/rectangle"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSearchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/baseline_search_24"
+            app:layout_constraintBottom_toBottomOf="@id/btnSettings"
+            app:layout_constraintEnd_toStartOf="@+id/btnSettings"
+            app:layout_constraintTop_toTopOf="@id/btnSettings" />
+
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/0"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/btnUp"
+            app:layout_constraintEnd_toStartOf="@id/btnUp"
+            app:layout_constraintTop_toTopOf="@id/btnUp"
+            tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/btnUp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/dark_gray"
+            android:contentDescription="up button"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/btnDown"
+            app:layout_constraintTop_toTopOf="@id/btnDown"
+            app:srcCompat="@drawable/up"
+            tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/btnDown"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/dark_gray"
+            android:contentDescription="down button"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/btnSearchIcon"
+            app:layout_constraintEnd_toStartOf="@id/btnSearchIcon"
+            app:layout_constraintTop_toTopOf="@id/btnSearchIcon"
+            app:srcCompat="@drawable/down"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack">
+        app:layout_constraintTop_toBottomOf="@+id/bar">
 
         <EditText
             android:id="@+id/txtNote"
@@ -31,6 +125,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:minHeight="48dp"
+            android:padding="10dp"
             android:text="note"
             android:textSize="14sp" />
     </ScrollView>

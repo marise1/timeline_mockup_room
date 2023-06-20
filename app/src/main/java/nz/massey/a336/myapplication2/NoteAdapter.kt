@@ -34,12 +34,12 @@ class NoteAdapter(val clickListener: (note: Note, noteclick: Boolean) -> Unit) :
 
             holder.mark.visibility = View.VISIBLE
             //holder.block.setBackgroundColor(Color.parseColor("#DADADA"))
-            Log.i("adapter", "_" + position.toString() + " " + note.select)
+            //Log.i("adapter", "_" + position.toString() + " " + note.select)
         } else {
             holder.arrow.visibility = View.INVISIBLE
             holder.mark.visibility = View.INVISIBLE
             //holder.block.setBackgroundColor(Color.parseColor("#FFFFFF"))
-            Log.i("adapter", position.toString() + " " + note.select)
+            //Log.i("adapter", position.toString() + " " + note.select)
         }
     }
 

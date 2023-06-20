@@ -2,7 +2,7 @@
 <resources>
     <color name="mark">#930000</color>
     <color name="gray">#DADADA</color>
-    <color name="dark_gray">#5A5A5A</color>
+    <color name="dark_gray">#2B2B2B</color>
     <color name="turnedOn">#FFB13C</color>
 
     <color name="purple_200">#FFBB86FC</color>

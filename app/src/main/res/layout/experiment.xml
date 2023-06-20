@@ -41,4 +41,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_search_24" />
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
