@@ -22,5 +22,11 @@
         <action
             android:id="@+id/action_noteFragment_to_listFragment"
             app:destination="@id/listFragment"/>
+        <argument
+            android:name="note"
+            app:argType="string" />
+        <argument
+            android:name="pos"
+            app:argType="long" />
     </fragment>
 </navigation>

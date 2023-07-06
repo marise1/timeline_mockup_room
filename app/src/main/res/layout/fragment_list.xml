@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListFragment">
@@ -11,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/dark_gray"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/txtSearch"
@@ -44,9 +45,11 @@
 
         <ImageView
             android:id="@+id/btnSearchIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/color_state"
             android:src="@drawable/baseline_search_24"
             app:layout_constraintBottom_toBottomOf="@id/btnSettings"
             app:layout_constraintEnd_toStartOf="@+id/btnSettings"
@@ -56,9 +59,9 @@
             android:id="@+id/btnSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/settings"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,7 +81,8 @@
             android:id="@+id/btnUp"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:backgroundTint="@color/dark_gray"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/color_state"
             android:contentDescription="up button"
             android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@+id/btnDown"
@@ -91,7 +95,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/dark_gray"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/color_state"
             android:contentDescription="down button"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/btnSearchIcon"
@@ -105,11 +110,12 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="60dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="3">
 
         <androidx.recyclerview.widget.RecyclerView

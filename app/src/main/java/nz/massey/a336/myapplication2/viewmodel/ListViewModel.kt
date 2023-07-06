@@ -1,7 +1,6 @@
-package nz.massey.a336.myapplication2
+package nz.massey.a336.myapplication2.viewmodel
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import nz.massey.a336.myapplication2.data.Note
@@ -9,19 +8,20 @@ import nz.massey.a336.myapplication2.data.NoteDao
 
 class ListViewModel(val dao: NoteDao) : ViewModel() {
 
-    var nav = false
+    var num = 0f
+    var drawBar = false
     var noteclick = false
     var _clickedNote : Note? = Note()
     val clickedNote = MutableLiveData<Note>()
 
     var noteList = listOf<Note>()
 
+    var select = 0
     var word = ""
     var txtTotal = ""
     var matchPos = -1
     var current = -1L
     var matchTotal = 0
-    var nextMatchPos = -1
     var i = 0
     var search = false
     var noteMatchList = listOf<Note>()
@@ -40,6 +40,7 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
         Log.i("itemclick", "noteclick = $click")
     }
     fun whenItemClick(note: Note){
+        _clickedNote = note
         setAllNoteFalse()
         val i = noteList.indexOf(note)
         noteList[i].select = true
@@ -63,6 +64,7 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
         _clickedNote = null
     }
     fun editNote(text: String){
+        if(search) return
         _clickedNote?.let{
             viewModelScope.launch{
                 dao.update(Note(it.pos, text))
@@ -80,7 +82,6 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
 
         if(noteMatchList.isEmpty()){
             current = -1
-            search = false
             txtTotal = "0/0"
             return
         }
@@ -100,20 +101,26 @@ class ListViewModel(val dao: NoteDao) : ViewModel() {
     }
 
     fun btnUp(){
+        if(noteMatchList.isEmpty()) {
+            return
+        }
         i--
         if(i == -1) i = noteMatchList.size-1
         current = noteMatchList[i].pos
-        nextMatchPos = noteList.indexOf(noteMatchList[i])
+        matchPos = noteList.indexOf(noteMatchList[i])
         txtTotal = "${i+1}/$matchTotal"
         Log.i("adapter4_up", "i = $i, current = $current")
     }
     fun btnDown(){
+        if(noteMatchList.isEmpty()) {
+            return
+        }
         i++
         if(i == noteMatchList.size) i=0
         current = noteMatchList[i].pos
-        nextMatchPos = noteList.indexOf(noteMatchList[i])
+        matchPos = noteList.indexOf(noteMatchList[i])
         txtTotal = "${i+1}/$matchTotal"
-        Log.i("adapter4_down", "${noteMatchList[i]}, " + "nextMatchPos=$nextMatchPos, i=$i, current=$current")
+        Log.i("adapter4_down", "${noteMatchList[i]}, " + "nextMatchPos=$matchPos, i=$i, current=$current")
         //Log.i("adapter4_down", "$noteList")
     }
 

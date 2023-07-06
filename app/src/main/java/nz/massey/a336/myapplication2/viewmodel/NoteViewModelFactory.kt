@@ -1,4 +1,4 @@
-package nz.massey.a336.myapplication2
+package nz.massey.a336.myapplication2.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +10,10 @@ class NoteViewModelFactory(private val dao: NoteDao)
         if (modelClass.isAssignableFrom(ListViewModel::class.java)) {
             return ListViewModel(dao) as T
         }
+        if (modelClass.isAssignableFrom(NoteViewModel::class.java)) {
+            return NoteViewModel(dao) as T
+        }
+
         throw IllegalArgumentException("Unknown ViewModel")
     }
 }
