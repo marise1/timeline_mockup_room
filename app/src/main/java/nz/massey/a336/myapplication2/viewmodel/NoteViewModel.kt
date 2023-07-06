@@ -47,14 +47,13 @@ class NoteViewModel(val dao: NoteDao) : ViewModel() {
     fun match(){
         highlightedNote = SpannableString(note)
 
-        var str = ""
+        var str = word
         val metacharString = "()[]{}^$.\\?*+|"
         for(char in word){
             if(metacharString.contains(char)){
                 str = word.replace(""+char, "\\"+char)
             }
         }
-
         val pattern = str.toRegex()
         matchList = pattern.findAll(note).toList()
 
