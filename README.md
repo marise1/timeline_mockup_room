@@ -1,5 +1,9 @@
 # timeline_mockup_room
-room with recyclerview
+
+a mockup to try kotlin, room, MVVM, search function\
+search function for timeline app\
+like find year by searching word, go to year, search within note\
+experiment with design, features
 
 <img src="img/mockup_search_pos.png" alt="mockup screenshot" width="20%" height="20%"> <img src="img/mockup_noteSearch3.png" alt="mockup screenshot" width="20%" height="20%"> <img src="img/mockup_noteSearch.png" alt="mockup screenshot" width="20%" height="20%"> <img src="img/mockup_noteSearch2.png" alt="mockup screenshot" width="20%" height="20%">
 
